@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.bg-color {
+  background-color: #4584ff;
+}
+
+.bg {
+  box-shadow: 0px 17px 19px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  border-radius: 8px;
+  @apply border 
+}
+
+.list-bg {
+  border-radius: 8px;
+  @apply border-0 px-5
+}
+
+.btn {
+  @apply text-white px-2 py-[7px] bg-[#4584ff] border-0 outline-none text-sm w-[40%] md:w-40 rounded-md hover:bg-[#598ef9] active:scale-95 duration-300;
+}
+
+
+
