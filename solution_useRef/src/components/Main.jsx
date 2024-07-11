@@ -7,7 +7,7 @@ const Main = () => {
   const [userInfos, setUserInfos] = useState([]);
 
   const getUserInfo = (userInfoObj) => {
-    // console.log(userInfoObj);
+    console.log(userInfoObj);
     setUserInfos([...userInfos, userInfoObj]);
   };
 
