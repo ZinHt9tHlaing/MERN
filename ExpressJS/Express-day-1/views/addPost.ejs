@@ -1,4 +1,4 @@
-<% include("./includes/head.ejs") %>
+<%- include("./includes/head.ejs") %>
 
 <section class="mx-auto">
   <a href="/">Go back home</a>
@@ -7,6 +7,10 @@
     <div>
       <label for="title">Enter Title</label>
       <input type="text" id="title" name="title" required />
+    </div>
+    <div>
+      <label for="photo">Enter Photo</label>
+      <input type="text" id="photo" name="photo" />
     </div>
     <div>
       <label for="description">Enter Description</label>
@@ -22,4 +26,4 @@
   </form>
 </section>
 
-<% include("./includes/foot.ejs") %>
+<%- include("./includes/foot.ejs") %>

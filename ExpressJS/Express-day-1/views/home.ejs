@@ -1,4 +1,4 @@
-<% include("./includes/head.ejs") %>
+<%- include("./includes/head.ejs") %>
 
 <h1 class="title">I am Home Page.</h1>
 <p class="description">
@@ -22,9 +22,10 @@
 <% for(let post of postsArr) { %>
 <div class="post-box">
   <p class="post-title"><%= post.title %></p>
-  <p class="post-des"><%= post.description %></p>
+  <!-- <p class="post-des"><%= post.description %></p> -->
+  <a class="btn" href="/post/<%= post.id %>">See More...</a>
 </div>
 
 <% } %>
 
-<% include("./includes/foot.ejs") %>
+<%- include("./includes/foot.ejs") %>
