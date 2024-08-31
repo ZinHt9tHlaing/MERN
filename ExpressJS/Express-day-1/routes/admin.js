@@ -1,12 +1,10 @@
 const express = require("express");
 const path = require("path");
-
 const router = express.Router();
-const postController = require("../controllers/post");
 
 //  /admin/create-post
-router.get("/create-post", postController.renderCreatePage);
-
-router.post("/", postController.createPost);
+router.get("/create-post", (req, res) => {
+  res.sendFile(path.join(__dirname, "..", "views", "addPost.html"));
+});
 
 module.exports = router;

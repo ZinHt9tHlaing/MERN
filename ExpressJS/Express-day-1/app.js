@@ -1,33 +1,25 @@
 const express = require("express");
 const path = require("path");
 const app = express();
-
-app.set("view engine", "ejs");
-app.set("views", "views");
-
 const postRoute = require("./routes/post");
-const router = require("./routes/admin");
-const bodyParser = require("body-parser");
+const adminRoute = require("./routes/admin");
+const PORT = 8080;
 
 app.use(express.static(path.join(__dirname, "public")));
-app.use(bodyParser.urlencoded({ extended: false }));
-
-app.use("/post", (req, res, next) => {
-  console.log("I am middleware one");
-  next();
-});
 
 app.use((req, res, next) => {
-  console.log("I am parent middleware");
+  console.log("I am home middleware");
   next();
 });
 
-app.use("/admin", (req, res, next) => {
-  console.log("admin middleware approved!");
+app.use("/post", (req, res, next) => {
+  console.log("I am post middleware");
   next();
 });
 
 app.use(postRoute);
-app.use("/admin", router);
+app.use("/admin", adminRoute);
 
-app.listen(8000, () => console.log("http://localhost:8000"));
+app.listen(PORT, () => {
+  console.log(`Server started on port http://localhost:${PORT}`);
+});
