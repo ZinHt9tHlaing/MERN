@@ -6,7 +6,8 @@ const posts = [];
 
 //  /admin/create-post
 router.get("/create-post", (req, res) => {
-  res.sendFile(path.join(__dirname, "..", "views", "addPost.html"));
+  // res.sendFile(path.join(__dirname, "..", "views", "addPost.html"));
+  res.render("addPost", { title: "Add Post" });
 });
 
 router.post("/", (req, res) => {

@@ -4,9 +4,10 @@ const { posts } = require("./admin");
 const router = express.Router();
 
 router.get("/", (req, res) => {
-  console.log(`Home Page => ${posts}`);
-  res.sendFile(path.join(__dirname, "..", "views", "homePage.html"));
+  console.log(posts);
+  // res.sendFile(path.join(__dirname, "..", "views", "homePage.html"));
   // express-day-1/routes/views/homePage.html
+  res.render("home", { title: "Home Page", postArr: posts });
 });
 
 router.get("/post", (req, res) => {

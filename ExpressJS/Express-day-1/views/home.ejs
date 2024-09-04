@@ -1,0 +1,26 @@
+<%- include("includes/header.ejs") %>
+
+<h1 class="title">I am home page.</h1>
+<p class="description">
+  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum tempora odio
+  impedit soluta omnis deleniti veritatis laudantium laborum placeat
+  suscipit debitis expedita, culpa ducimus dolore explicabo aut repudiandae,
+  ex vero.
+</p>
+<a href="/admin/create-post">Add a new post</a>
+<hr />
+
+<% if(postArr.length < 1) { %>
+<h4>Nothing to see</h4>
+<p>Create a new post !!</p>
+<a href="/admin/create-post">Create a new post</a>
+<% } %>
+<% for( let post of postArr ) { %>
+<h1 class="title">Posts</h1>
+<div class="post-box">
+  <p class="post-title"><%= post.title %></p>
+  <p class="post-description"><%= post.description %></p>
+</div>
+<% } %>
+
+<%- include("includes/footer.ejs") %>

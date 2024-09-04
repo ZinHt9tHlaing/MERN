@@ -1,3 +1,7 @@
+body {
+  padding: 0px 70px;
+}
+
 .title {
   text-align: center;
 }
@@ -15,7 +19,6 @@ a {
   padding: 8px 10px;
   width: fit-content;
   text-decoration: none;
-  float: right;
 }
 
 label {
@@ -24,7 +27,8 @@ label {
   margin-top: 10px;
 }
 
-input {
+input,
+textarea {
   font-size: 18px;
   padding: 4px 10px;
   width: 100%;
@@ -41,4 +45,20 @@ button {
 .mx-auto {
   width: 40%;
   margin: auto;
+}
+
+.post-box {
+  border: 1px solid black;
+  padding: 10px 20px;
+  margin-bottom: 20px;
+}
+
+.post-title {
+  font-size: 20px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.post-description {
+  text-align: center;
 }
