@@ -2,7 +2,7 @@ const express = require("express");
 const path = require("path");
 const app = express();
 const postRoute = require("./routes/post");
-const { adminRoutes } = require("./routes/admin");
+const router = require("./routes/admin");
 const bodyParser = require("body-parser");
 
 app.set("view engine", "ejs");
@@ -27,7 +27,7 @@ app.use("/admin", (req, res, next) => {
 });
 
 app.use(postRoute);
-app.use("/admin", adminRoutes);
+app.use("/admin", router);
 
 const PORT = 8080;
 app.listen(PORT, () => {
