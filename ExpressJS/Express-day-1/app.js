@@ -4,6 +4,7 @@ const app = express();
 const postRoute = require("./routes/post");
 const router = require("./routes/admin");
 const bodyParser = require("body-parser");
+const db = require('./utils/db')
 
 app.set("view engine", "ejs");
 app.set("views", "views");
