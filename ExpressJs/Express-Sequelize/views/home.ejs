@@ -15,10 +15,10 @@
 <p>Create a new post !!</p>
 <a href="/admin/create-post">Create a new post</a>
 <% } %>
-<% for( let post of postArr ) { %>
 <h1 class="title">Posts</h1>
+<% for( let post of postArr ) { %>
 <div class="post-box">
-  <p class="post-title"><%= post.title %></p>
+  <p class="post-title"><%= post.title %> </p>
   <a href="/post/<%= post.id %>" class="btn">See more...</a>
 </div>
 <% } %>

@@ -7,12 +7,14 @@ exports.createPost = (req, res) => {
   Post.create({
     title,
     description,
-    imgUrl: photo
-  }).then((result) => {
-    console.log(result);
-    console.log("New post created");
-    res.redirect('/');
-  }).catch(err => console.log(err))
+    imgUrl: photo,
+  })
+    .then((result) => {
+      // console.log(result);
+      console.log("New post created");
+      res.redirect("/");
+    })
+    .catch((err) => console.log(err));
 };
 
 exports.renderCreatePage = (req, res) => {
@@ -21,10 +23,13 @@ exports.renderCreatePage = (req, res) => {
 };
 
 exports.getPosts = (req, res) => {
-  Post.findAll().then((posts) => {
-    // console.log(posts);
-    res.render("home", { title: "Home Page", postArr: posts });
+  Post.findAll({
+    order: [["createdAt", "desc"]],
   })
+    .then((posts) => {
+      // console.log(posts);
+      res.render("home", { title: "Home Page", postArr: posts });
+    })
     .catch((err) => console.log(err));
 };
 
@@ -36,10 +41,51 @@ exports.getPostById = (req, res) => {
   //   })
   //   .catch((err) => console.log(err));
 
-    Post.findOne({ where: { id: postId } })
+  Post.findOne({ where: { id: postId } })
     .then((post) => {
-      console.log(post);
+      // console.log(post);
       res.render("details", { title: "Post Detail Page", post });
+    })
+    .catch((err) => console.log(err));
+};
+
+exports.deletePost = (req, res) => {
+  const postId = req.params.postId;
+  Post.findByPk(postId)
+    .then((post) => {
+      if (!post) {
+        res.redirect("/");
+      }
+      return post.destroy();
+    })
+    .then((result) => {
+      console.log("Post Deleted!!");
+      res.redirect("/");
+    })
+    .catch((err) => console.log(err));
+};
+
+exports.getOldPost = (req, res) => {
+  const postId = req.params.postId;
+  Post.findByPk(postId)
+    .then((post) => {
+      res.render("editPost", { title: `${post.title}`, post });
+    })
+    .catch((err) => console.log(err));
+};
+
+exports.updatePost = (req, res) => {
+  const { title, description, photo, post_id } = req.body;
+  Post.findByPk(post_id)
+    .then((post) => {
+      post.title = title;
+      post.description = description;
+      post.imgUrl = photo;
+      return post.save();
+    })
+    .then((result) => {
+      // console.log(`Post id ${post_id} is updated`);
+      res.redirect("/");
     })
     .catch((err) => console.log(err));
 };

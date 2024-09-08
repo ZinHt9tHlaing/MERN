@@ -35,7 +35,7 @@ app.use(postRoute);
 
 const PORT = 8080;
 sequelize.sync().then(result => {
-  console.log(result);
+  // console.log(result);
   app.listen(PORT, () => {
     console.log(`Server started on port http://localhost:${PORT}`);
   });
