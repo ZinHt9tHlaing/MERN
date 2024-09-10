@@ -1,13 +1,14 @@
 // const posts = [];
 
-const Post = require("../models/posts");
+const Post = require("../models/post");
 
 exports.createPost = (req, res) => {
   const { title, description, photo } = req.body;
-  Post.create({
+  req.user.createPost({
     title,
     description,
     imgUrl: photo,
+    userId: req.user.id,
   })
     .then((result) => {
       // console.log(result);
