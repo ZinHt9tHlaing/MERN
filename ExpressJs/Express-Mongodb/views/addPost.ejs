@@ -1,0 +1,28 @@
+<%- include("includes/header.ejs") %>
+
+<section class="mx-auto">
+  <a href="/">Go back home</a>
+  <h1>Add a new post here</h1>
+  <form method="post" action="/admin">
+    <div>
+      <label for="title">Enter Title</label>
+      <input type="text" id="title" name="title" required />
+    </div>
+    <div>
+      <label for="photo">Enter Photo</label>
+      <input type="text" id="photo" name="photo" required />
+    </div>
+    <div>
+      <label for="description">Description</label>
+      <textarea
+        name="description"
+        id="description"
+        cols="30"
+        rows="10"
+        required
+      ></textarea>
+    </div>
+    <button>Add Post</button>
+  </form>
+</section>
+<%- include("includes/footer.ejs") %>
