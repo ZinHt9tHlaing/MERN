@@ -1,8 +1,9 @@
-
-const About = () => {
+const User = () => {
   return (
-    <div>About</div>
-  )
-}
+    <div>
+      <h1 className=" text-4xl font-bold">I am UserPage.</h1>
+    </div>
+  );
+};
 
-export default About
+export default User;

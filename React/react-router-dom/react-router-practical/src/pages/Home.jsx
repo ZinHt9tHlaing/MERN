@@ -5,7 +5,7 @@ const Home = () => {
 
   const navigateHandler = () => {
     setTimeout(() => {
-      navigate("/products");
+      navigate("/posts");
     }, 3000);
   };
 
@@ -14,9 +14,9 @@ const Home = () => {
       <h1 className=" text-4xl font-bold">I am HomePage.</h1>
       <button
         onClick={navigateHandler}
-        className="px-2 py-1 mt-2 text-lg bg-black text-white rounded-md active:scale-95 duration-200"
+        className="px-2 py-1 mt-2 text-lg bg-blue-600 text-white rounded-md active:scale-95 duration-200"
       >
-        Go to Products
+        Go to Posts
       </button>
     </div>
   );

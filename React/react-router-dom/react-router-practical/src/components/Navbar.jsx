@@ -2,13 +2,13 @@ import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
   return (
-    <nav className="flex justify-center items-center gap-2 my-5">
+    <nav className="flex justify-center items-center gap-4 tracking-wide font-mono mt-3 mb-10">
       <NavLink
         to="/"
         className={({ isActive }) =>
           isActive
-            ? "text-blue-600 font-bold italic text-lg underline transition-transform duration-300"
-            : "text-blue-600"
+            ? "text-white text-xl bg-blue-600 px-2 rounded-md -transition-transform duration-300"
+            : "text-blue-500 text-lg"
         }
       >
         Home
@@ -17,21 +17,21 @@ const Navbar = () => {
         to="/about"
         className={({ isActive }) =>
           isActive
-            ? "text-blue-600 font-bold italic text-lg underline  transition-transform duration-300"
-            : "text-blue-600"
+            ? "text-white text-xl bg-blue-600 px-2 rounded-md -transition-transform duration-300"
+            : "text-blue-500 text-lg"
         }
       >
         About
       </NavLink>
       <NavLink
-        to="/products"
+        to="/posts"
         className={({ isActive }) =>
           isActive
-            ? "text-blue-600 font-bold italic text-lg underline  transition-transform duration-300"
-            : "text-blue-600"
+            ? "text-white text-xl bg-blue-600 px-2 rounded-md -transition-transform duration-300"
+            : "text-blue-500 text-lg"
         }
       >
-        Products
+        Posts
       </NavLink>
     </nav>
   );

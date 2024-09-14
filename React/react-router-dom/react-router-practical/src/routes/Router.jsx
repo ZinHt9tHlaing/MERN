@@ -1,6 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../layouts/Main";
 import { About, Error, Home, ProductDetails, Products } from "../pages";
+import { loader as productLoader } from "../pages/posts/Posts";
+import { loader as productDetailLoader } from "../pages/posts/PostDetails";
 
 const router = createBrowserRouter([
   {
@@ -17,13 +19,16 @@ const router = createBrowserRouter([
         element: <About />,
       },
       {
-        path: "/products",
+        path: "/posts",
         element: <Products />,
+        loader: productLoader,
       },
       {
-        path: "/product/:title",
+        path: "/post/:postId",
         element: <ProductDetails />,
+        loader: productDetailLoader,
       },
+     
     ],
   },
 ]);
