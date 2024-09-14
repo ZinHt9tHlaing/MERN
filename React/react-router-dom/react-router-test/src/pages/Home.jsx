@@ -10,7 +10,7 @@ const Home = () => {
   };
 
   return (
-    <div className="text-center">
+    <div>
       <h1 className=" text-4xl font-bold">I am HomePage.</h1>
       <button
         onClick={navigateHandler}
