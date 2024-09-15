@@ -5,7 +5,7 @@ const postRoute = require("./routes/post");
 const router = require("./routes/admin");
 const bodyParser = require("body-parser");
 
-const mongodbConnector = require("./utils/database");
+const { mongodbConnector } = require("./utils/database");
 
 app.set("view engine", "ejs");
 app.set("views", "views");

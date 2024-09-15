@@ -1,14 +1,14 @@
+const Post = require("../models/post");
+
 const posts = [];
 
 exports.createPost = (req, res) => {
   const { title, description, photo } = req.body;
-  // console.log(`title: ${title}, description: ${description}`);
-  posts.push({
-    id: Math.random(),
-    title,
-    description,
-    photo,
-  });
+  const post = new Post(title, description, photo);
+  post
+    .create()
+    .then((result) => console.log(result))
+    .catch((err) => console.log(err));
   res.redirect("/");
 };
 
@@ -18,15 +18,14 @@ exports.renderCreatePage = (req, res) => {
 };
 
 exports.renderHomePage = (req, res) => {
-  // console.log(posts);
-  // res.sendFile(path.join(__dirname, "..", "views", "homePage.html"));
-  // express-day-1/routes/views/homePage.html
-  res.render("home", { title: "Home Page", postArr: posts });
+  Post.getPosts()
+    .then((posts) => res.render("home", { title: "Home Page", postArr: posts }))
+    .catch((err) => console.log(err));
 };
 
 exports.getPost = (req, res) => {
-  const postId = Number(req.params.postId);
-  const post = posts.find((post) => post.id === postId);
-  // console.log(post);
-  res.render("details", { title: "Post Detail Page", post });
+  const postId = req.params.postId;
+  Post.getPost(postId)
+    .then((post) => res.render("details", { title: post.title, post }))
+    .catch((err) => console.log(err));
 };
