@@ -2,10 +2,12 @@
 
 <section class="details">
   <h1><%= post.title %></h1>
-  <img src="<%= post.imgUrl %>" alt="<%= post.title %>">
+  <a href="/admin/edit/<%= post._id %>" class="btn-full">Edit</a>
+  <form action="/admin/delete/<%= post._id %>" method="POST">
+    <button>Delete</button>
+  </form>
+  <img src="<%= post.imgUrl %>" alt="<%= post.title %>" />
   <p><%= post.description %></p>
-  <button>Edit</button>
-  <button>Delete</button>
 </section>
 
 <%- include("includes/footer.ejs") %>

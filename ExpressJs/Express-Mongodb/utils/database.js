@@ -5,6 +5,7 @@ const dotenv = require("dotenv").config();
 
 let db;
 
+// database collection open
 const mongodbConnector = () => {
   mongodbClient
     .connect(process.env.MONGODB_URL)
