@@ -41,6 +41,7 @@ button, .btn-full {
   padding: 8px 0;
   width: 100%;
   text-align: center;
+  cursor: pointer;
 }
 
 .mx-auto {

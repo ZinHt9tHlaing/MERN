@@ -4,14 +4,14 @@
   <a href="/">Go back home</a>
   <h1>Edit post here</h1>
   <form method="post" action="/admin/edit-post">
-    <input type="text" value="<%= post._id %>" name="postId" >
+    <input type="text" value="<%= post._id %>" name="postId" hidden />
     <div>
       <label for="title">Enter Title</label>
       <input
         type="text"
         id="title"
         name="title"
-        value="<%= post.title %>"
+        value="<%= title %>"
         required
       />
     </div>
