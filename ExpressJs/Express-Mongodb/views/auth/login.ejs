@@ -1,0 +1,18 @@
+<%- include("../includes/header.ejs") %>
+
+<section class="mx-auto">
+  <a href="/">Go back home</a>
+  <h1 class="title">Add a new Account here</h1>
+  <form method="post" action="/login">
+    <div>
+      <label for="email">Enter Email</label>
+      <input type="email" id="email" name="email" />
+    </div>
+    <div>
+      <label for="password">Enter Password</label>
+      <input type="password" id="password" name="password" />
+    </div>
+    <button>Create Account</button>
+  </form>
+</section>
+<%- include("../includes/footer.ejs") %>

@@ -2,15 +2,20 @@ const express = require("express");
 const path = require("path");
 const app = express();
 const bodyParser = require("body-parser");
-
-const mongoose = require("mongoose");
 const dotenv = require("dotenv").config();
 
-const postRoute = require("./routes/post");
-const router = require("./routes/admin");
+// controllers
+const mongoose = require("mongoose");
 
+// route
+const postRoutes = require("./routes/post");
+const adminRoutes = require("./routes/admin");
+const authRoutes = require("./routes/auth");
+
+// models
 const User = require("./models/user");
 
+// views
 app.set("view engine", "ejs");
 app.set("views", "views");
 
@@ -24,8 +29,10 @@ app.use((req, res, next) => {
   });
 });
 
-app.use(postRoute);
-app.use("/admin", router);
+// routes middleware
+app.use("/admin", adminRoutes);
+app.use(postRoutes);
+app.use(authRoutes);
 
 const PORT = 8080;
 mongoose

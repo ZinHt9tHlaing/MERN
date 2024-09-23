@@ -6,7 +6,12 @@
   impedit soluta omnis deleniti veritatis laudantium laborum placeat suscipit
   debitis expedita, culpa ducimus dolore explicabo aut repudiandae, ex vero.
 </p>
+<% if (isLogIn) { %>
 <a href="/admin/create-post">Add a new post</a>
+<% } else { %>
+<a href="/login">Create a new account</a>
+<% } %>
+
 <hr />
 
 <% if(postArr.length < 1) { %>

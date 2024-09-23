@@ -4,7 +4,7 @@ exports.createPost = (req, res) => {
   const { title, description, photo } = req.body;
   Post.create({ title, description, imgUrl: photo, userId: req.user })
     .then((result) => {
-      console.log(result);
+      // console.log(result);
       res.redirect("/");
     })
     .catch((error) => console.log(error));
@@ -16,13 +16,20 @@ exports.renderCreatePage = (req, res) => {
 };
 
 exports.renderHomePage = (req, res) => {
+  // isLogIn = true
+  const cookie = req.get("Cookie").split("=")[1].trim() === "true";
+  // console.log(cookie);
   Post.find()
     .select("title")
     .populate("userId", "username")
     .sort({ title: -1 })
     .then((posts) => {
-      console.log(posts);
-      res.render("home", { title: "Home Page", postArr: posts });
+      // console.log(posts);
+      res.render("home", {
+        title: "Home Page",
+        postArr: posts,
+        isLogIn: cookie,
+      });
     })
     .catch((err) => console.log(err));
 };
