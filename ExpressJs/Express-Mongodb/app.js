@@ -61,16 +61,6 @@ mongoose
     app.listen(PORT, () => {
       console.log(`Server started on port http://localhost:${PORT}`);
     });
-    return User.findOne().then((user) => {
-      if (!user) {
-        User.create({
-          username: "coder",
-          email: "admin@gmail.com",
-          password: "12345",
-        });
-      }
-      return user;
-    });
   })
-  .then((result) => console.log(result))
+  // .then((result) => console.log(result))
   .catch((err) => console.log(err));
