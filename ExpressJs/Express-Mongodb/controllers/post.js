@@ -4,7 +4,6 @@ exports.createPost = (req, res) => {
   const { title, description, photo } = req.body;
   Post.create({ title, description, imgUrl: photo, userId: req.user })
     .then((result) => {
-      // console.log(result);
       res.redirect("/");
     })
     .catch((error) => console.log(error));
@@ -21,13 +20,15 @@ exports.renderHomePage = (req, res) => {
   // console.log(req.session.isLogin);
   Post.find()
     .select("title")
-    .populate("userId", "username")
+    .populate("userId", "email")
     .sort({ title: -1 })
     .then((posts) => {
+      console.log(posts);
       res.render("home", {
         title: "Home Page",
         postArr: posts,
         isLogIn: req.session.isLogin ? true : false,
+        // csrfToken: req.csrfToken(),
       });
     })
     .catch((err) => console.log(err));
