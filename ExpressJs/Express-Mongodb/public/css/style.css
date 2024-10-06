@@ -34,7 +34,8 @@ textarea {
   width: 100%;
 }
 
-button, .btn-full {
+button,
+.btn-full {
   margin: 10px 0;
   color: #fff;
   background-color: #000;
@@ -81,4 +82,21 @@ button, .btn-full {
 
 .details p {
   font-size: 17px;
+}
+
+.msg-box {
+  width: 100%;
+  text-align: center;
+  color: red;
+  border: 1px solid red;
+  background-color: rgb(255, 184, 184);
+  padding: 4px 10px;
+}
+
+.msg-box-warn {
+  width: 100%;
+  text-align: center;
+  border: 1px solid yellow;
+  background-color: rgb(255, 255, 193);
+  padding: 4px 10px;
 }

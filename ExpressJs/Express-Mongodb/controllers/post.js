@@ -23,7 +23,7 @@ exports.renderHomePage = (req, res) => {
     .populate("userId", "email")
     .sort({ title: -1 })
     .then((posts) => {
-      console.log(posts);
+      // console.log(posts);
       res.render("home", {
         title: "Home Page",
         postArr: posts,

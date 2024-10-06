@@ -1,9 +1,17 @@
+const { LessThan } = require("typeorm");
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
 
 // render register page
 exports.getRegisterPage = (req, res) => {
-  res.render("auth/register", { title: "Register Page" });
+  let message = req.flash("error");
+  if (message.length > 0) {
+    // array.length
+    message = message[0];
+  } else {
+    message = null;
+  }
+  res.render("auth/register", { title: "Register Page", errorMsg: message });
 };
 
 // handle register
@@ -12,6 +20,7 @@ exports.registerAccount = (req, res) => {
   User.findOne({ email })
     .then((user) => {
       if (user) {
+        req.flash("error", "Email is already exist.");
         return res.redirect("/register");
       }
       return bcrypt.hash(password, 10).then((hashedPassword) => {
@@ -26,7 +35,14 @@ exports.registerAccount = (req, res) => {
 
 // render login page
 exports.getLoginPage = (req, res) => {
-  res.render("auth/login", { title: "Login Page" });
+  let message = req.flash("error");
+  if (message.length > 0) {
+    // array.length
+    message = message[0];
+  } else {
+    message = null;
+  }
+  res.render("auth/login", { title: "Login Page", errorMsg: message });
 };
 
 // handle login
@@ -35,6 +51,7 @@ exports.postLoginData = (req, res) => {
   User.findOne({ email })
     .then((user) => {
       if (!user) {
+        req.flash("error", "Check your information and try again.");
         return res.redirect("/login");
       }
       bcrypt.compare(password, user.password).then((isMatch) => {

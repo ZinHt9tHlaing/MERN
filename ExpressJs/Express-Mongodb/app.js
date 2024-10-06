@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const dotenv = require("dotenv").config();
 const session = require("express-session");
 const MongodbStore = require("connect-mongodb-session")(session);
+const flash = require("connect-flash");
 // const csrf = require("csurf");
 
 // server
@@ -44,6 +45,7 @@ app.use(
     store: sessionStore,
   })
 );
+app.use(flash());
 
 // app.use(csrfProtect);
 

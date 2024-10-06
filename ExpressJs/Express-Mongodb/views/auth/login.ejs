@@ -4,6 +4,9 @@
   <a href="/">Go back home</a>
   <h1 class="title">Login Account</h1>
   <form method="post" action="/login">
+    <% if (errorMsg) { %>
+    <p class="msg-box"><%= errorMsg %></p>
+    <% } %>
     <div>
       <label for="email">Enter Email</label>
       <input type="email" id="email" name="email" />
