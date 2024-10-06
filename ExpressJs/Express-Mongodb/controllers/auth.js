@@ -1,6 +1,15 @@
-const { LessThan } = require("typeorm");
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
+const nodemailer = require("nodemailer");
+const dotenv = require("dotenv").config();
+
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.SENDER_MAIL,
+    pass: process.env.MAIL_PASSWORD,
+  },
+});
 
 // render register page
 exports.getRegisterPage = (req, res) => {
@@ -27,7 +36,20 @@ exports.registerAccount = (req, res) => {
         return User.create({
           email,
           password: hashedPassword,
-        }).then((_) => res.redirect("/login"));
+        }).then((_) => {
+          res.redirect("/login");
+          transporter.sendMail(
+            {
+              from: process.env.SENDER_MAIL,
+              to: email,
+              subject: "Register Successful",
+              html: "<h1>Register account successful.</h1><p>Create an account using this email address in blog.io.</p>",
+            },
+            (err) => {
+              console.log(err);
+            }
+          );
+        });
       });
     })
     .catch((err) => console.log(err));
