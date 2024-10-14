@@ -1,0 +1,17 @@
+<%- include("../includes/header.ejs") %>
+
+<section class="mx-auto">
+  <a href="/login">Go back Login</a>
+  <h1 class="title">Reset Password</h1>
+  <% if (errorMsg) { %>
+  <p class="msg-box"><%= errorMsg %></p>
+  <% } %>
+  <form method="post" action="/reset">
+    <div>
+      <label for="email">Enter Email</label>
+      <input type="email" id="email" name="email" />
+    </div>
+    <button>Reset Password</button>
+  </form>
+</section>
+<%- include("../includes/footer.ejs") %>
