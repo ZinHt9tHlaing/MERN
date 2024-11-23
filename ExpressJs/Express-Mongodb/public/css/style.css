@@ -1,9 +1,45 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", serif;
+}
+
 body {
   padding: 0px 15px;
 }
 
-.title {
+.header {
   text-align: center;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  padding: 0 80px;
+}
+
+.header h1 {
+  font-size: 50px;
+}
+
+.header p {
+  font-size: 20px;
+}
+
+.login-div,
+.login-div div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-div div {
+  gap: 10px;
+}
+
+.login-div span {
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .description {
@@ -38,11 +74,14 @@ button,
 .btn-full {
   margin: 10px 0;
   color: #fff;
+  font-size: 16px;
   background-color: #000;
-  padding: 8px 0;
+  padding: 8px;
   width: 100%;
   text-align: center;
   cursor: pointer;
+  outline: none;
+  border: none;
 }
 
 .mx-auto {
@@ -50,28 +89,56 @@ button,
   margin: auto;
 }
 
-.post-box {
-  border: 1px solid black;
-  padding: 10px 20px;
+.title {
+  font-size: 40px;
+  padding-left: 40px;
   margin-bottom: 20px;
+  margin-top: 25px;
+}
+
+.post-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 0 40px;
+  gap: 10px;
+}
+
+.post-box {
+  flex: 1;
+}
+
+.post-title {
+  font-size: 25px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+/* .post-desc {
+  font-size: 22px;
+} */
+
+.post-email {
+  font-size: 19px;
+  margin: 10px 0;
+  font-weight: 600;
+}
+
+.details {
+  width: 60%;
+  margin: auto;
+  padding: 20px 0;
+}
+
+.details div {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.post-title {
-  font-size: 20px;
-  text-transform: uppercase;
-  font-weight: 600;
-}
-
-.post-description {
-  text-align: center;
-}
-
 .details h1 {
   text-align: center;
-  margin: 20px 0;
+  margin-bottom: 40px;
+  font-size: 44px;
 }
 
 .details img {
@@ -80,8 +147,12 @@ button,
   object-fit: cover;
 }
 
+.details hr {
+  margin: 20px 0;
+}
+
 .details p {
-  font-size: 17px;
+  font-size: 21px;
 }
 
 .msg-box {

@@ -1,35 +1,57 @@
 <%- include("includes/header.ejs") %>
 
-<h1 class="title">I am home page.</h1>
-<p class="description">
-  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum tempora odio
-  impedit soluta omnis deleniti veritatis laudantium laborum placeat suscipit
-  debitis expedita, culpa ducimus dolore explicabo aut repudiandae, ex vero.
-</p>
+<section class="header">
+  <h1 class="title">Blog.io</h1>
+  <p class="description">
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum tempora odio
+    impedit soluta omnis deleniti veritatis laudantium laborum placeat suscipit
+    debitis expedita, culpa ducimus dolore explicabo aut repudiandae, ex vero.
+    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Inventore
+    temporibus quas nobis magni doloribus dolorum minus rerum corporis suscipit
+    voluptatem, itaque repudiandae non voluptate adipisci molestiae commodi
+    consequatur officiis perspiciatis. Lorem, ipsum dolor sit amet consectetur
+    adipisicing elit. Ipsa, sapiente.
+  </p>
+</section>
 <% if (isLogIn) { %>
-<a href="/admin/create-post">Add a new post</a>
-<form action="/logout" method="post">
-  <button>Logout</button>
-</form>
+
+<div class="login-div">
+  <div>
+    <a href="/admin/create-post">Add a new post as <%= currentUserEmail %></a>
+    <span>or</span>
+    <form action="/logout" method="post">
+      <button>Logout</button>
+    </form>
+  </div>
+</div>
+
 <% } else { %>
-<a href="/login">Login to existing account</a>
-<a href="/register">Create a new account</a>
+<div class="login-div">
+  <div>
+    <a href="/login">Login to existing account</a>
+    <span>or</span>
+    <a href="/register">Create a new account</a>
+  </div>
+</div>
 <% } %>
 
 <hr />
 
-<% if(postArr.length < 1) { %>
+<% if(postArr.length < 1 && isLogIn) { %>
 <h4>Nothing to see</h4>
 <p>Create a new post !!</p>
 <a href="/admin/create-post">Create a new post</a>
 <% } %>
-<h1 class="title">Posts</h1>
-<% for( let post of postArr ) { %>
-<div class="post-box">
-  <div>
+<h1 class="title">Recent posts</h1>
+<div class="post-container">
+  <% for( let post of postArr ) { %>
+  <div class="post-box">
     <p class="post-title"><%= post.title %></p>
-    <p>Post by => <%= post.userId.email %></p>
+    <p class="post-email">Post by : <%= post.userId.email %></p>
+    <p class="post-desc"><%= post.description.substr(0, 250) %></p>
+    <a href="/post/<%= post._id %>" class="btn">Read more...</a>
+    <hr />
   </div>
-  <a href="/post/<%= post._id %>" class="btn">See more...</a>
+  <% } %>
 </div>
-<% } %> <%- include("includes/footer.ejs") %>
+<%- include("includes/footer.ejs") %>
