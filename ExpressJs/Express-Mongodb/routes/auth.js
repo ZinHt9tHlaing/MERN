@@ -47,14 +47,18 @@ router.post(
 // handle logout
 router.post("/logout", authController.logout);
 
-// render reset page
+// render reset password page
 router.get("/reset-password", authController.getResetPage);
 
 // render feedback page
 router.get("/feedback", authController.getFeedbackPage);
 
 // send reset email
-router.post("/reset", authController.resetLinkSend);
+router.post(
+  "/reset",
+  body("email").isEmail().withMessage("Please enter a valid email address."),
+  authController.resetLinkSend
+);
 
 // render change password page
 router.get("/reset-password/:token", authController.getNewPasswordPage);

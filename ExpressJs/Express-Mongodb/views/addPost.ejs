@@ -2,15 +2,30 @@
 
 <section class="mx-auto">
   <a href="/">Go back home</a>
-  <h1 class="title">Add a new post here</h1>
+  <h1 class="form-title">Add a new post here</h1>
+  <% if (errorMsg) { %>
+  <p class="msg-box"><%= errorMsg %></p>
+  <% } %>
   <form method="post" action="/admin">
     <div>
       <label for="title">Enter Title</label>
-      <input type="text" id="title" name="title" required />
+      <input
+        type="text"
+        id="title"
+        name="title"
+        value="<%= oldFormData.title %>"
+        required
+      />
     </div>
     <div>
       <label for="photo">Enter Photo</label>
-      <input type="text" id="photo" name="photo" required />
+      <input
+        type="text"
+        id="photo"
+        name="photo"
+        value="<%= oldFormData.photo %>"
+        required
+      />
     </div>
     <div>
       <label for="description">Description</label>
@@ -19,6 +34,7 @@
         id="description"
         cols="30"
         rows="10"
+        value="<%= oldFormData.description %>"
         required
       ></textarea>
     </div>

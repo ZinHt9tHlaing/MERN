@@ -2,16 +2,24 @@
 
 <section class="mx-auto">
   <a href="/">Go back home</a>
-  <h1>Edit post here</h1>
+  <h1 class="form-title">Edit post here</h1>
+  <% if (errorMsg) { %>
+  <p class="msg-box"><%= errorMsg %></p>
+  <% } %>
   <form method="post" action="/admin/edit-post">
-    <input type="text" value="<%= post._id %>" name="postId" hidden />
+    <input
+      type="text"
+      value="<%= isValidationFail ? postId : post._id %>"
+      name="postId"
+      hidden
+    />
     <div>
       <label for="title">Enter Title</label>
       <input
         type="text"
         id="title"
         name="title"
-        value="<%= title %>"
+        value="<%= isValidationFail ? oldFormData.title : title %>"
         required
       />
     </div>
@@ -21,7 +29,7 @@
         type="text"
         id="photo"
         name="photo"
-        value="<%= post.imgUrl %>"
+        value="<%= isValidationFail ? oldFormData.photo : post.imgUrl %>"
         required
       />
     </div>
@@ -34,8 +42,8 @@
         rows="10"
         required
       >
-<%= post.description %></textarea
-      >
+          <%= isValidationFail ? oldFormData.description : post.description %>
+      </textarea>
     </div>
     <button>Update Post</button>
   </form>

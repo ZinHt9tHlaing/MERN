@@ -5,7 +5,11 @@
     <h1><%= post.title %></h1>
     <a href="/">Go Back</a>
   </div>
-  <% if (post.userId.toString() === currentLoginUserId.toString()) { %>
+  <p class="tmp">Posted by - <%= post.userId.email %></p>
+  <% if (date) { %>
+  <p class="tmp">Uploaded at - <%= date %></p>
+  <% } %> <% if (post.userId._id.toString() === currentLoginUserId.toString()) {
+  %>
   <div class="login-div">
     <div>
       <a href="/admin/edit/<%= post._id %>" class="btn-full">Edit</a>
@@ -17,7 +21,7 @@
   <% } %>
   <img src="<%= post.imgUrl %>" alt="<%= post.title %>" class="det-mg" />
   <hr />
-  <p class="det-desc"><%= post.description %></p>
+  <p class="desc"><%= post.description %></p>
 </section>
 
 <%- include("includes/footer.ejs") %>
