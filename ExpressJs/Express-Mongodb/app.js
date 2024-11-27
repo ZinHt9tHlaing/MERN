@@ -11,9 +11,6 @@ const flash = require("connect-flash");
 // server
 const app = express();
 
-// controllers
-const mongoose = require("mongoose");
-
 const { isLogin } = require("./middleware/is-login");
 
 // routes
@@ -27,6 +24,10 @@ const sessionStore = new MongodbStore({
   uri: process.env.MONGODB_URI,
   collection: "sessions",
 });
+
+// controllers
+const mongoose = require("mongoose");
+const errorController = require("./controllers/error");
 
 // const csrfProtect = csrf();
 
@@ -74,6 +75,10 @@ app.use(authRoutes);
 //   res.locals.csrfToken = req.csrfToken();
 //   next();
 // });
+
+app.all("*", errorController.get404Page);
+
+app.use(errorController.get500Page);
 
 // database connect
 const PORT = 8080;
