@@ -35,14 +35,16 @@
 </div>
 <% } %>
 
-<hr />
+<hr class="hr" />
 
-<% if(postArr.length < 1 && isLogIn) { %>
-<h4>Nothing to see</h4>
-<p>Create a new post !!</p>
-<a href="/admin/create-post">Create a new post</a>
-<% } %>
 <h1 class="title">Recent posts</h1>
+<div class="pl-80">
+  <% if(postArr.length < 1 && isLogIn) { %>
+  <h4>Nothing to see</h4>
+  <p>Create a new post !!</p>
+  <a href="/admin/create-post">Create a new post</a>
+  <% } %>
+</div>
 <div class="post-container">
   <% for( let post of postArr ) { %>
   <div class="post-box">

@@ -6,7 +6,7 @@
   <% if (errorMsg) { %>
   <p class="msg-box"><%= errorMsg %></p>
   <% } %>
-  <form method="post" action="/admin">
+  <form method="post" action="/admin" enctype="multipart/form-data">
     <div>
       <label for="title">Enter Title</label>
       <input
@@ -17,7 +17,7 @@
         required
       />
     </div>
-    <div>
+    <!-- <div>
       <label for="photo">Enter Photo</label>
       <input
         type="text"
@@ -26,6 +26,10 @@
         value="<%= oldFormData.photo %>"
         required
       />
+    </div> -->
+    <div>
+      <label for="photo">Enter Photo</label>
+      <input type="file" id="photo" name="photo" required />
     </div>
     <div>
       <label for="description">Description</label>
