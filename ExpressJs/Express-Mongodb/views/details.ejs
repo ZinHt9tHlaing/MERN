@@ -9,18 +9,20 @@
   <p class="tmp">Posted by - <%= post.userId.email %></p>
   <% if (date) { %>
   <p class="tmp">Uploaded at - <%= date %></p>
-  <% } %> <% if (post.userId._id.toString() === currentLoginUserId.toString()) {
-  %>
-  <div class="login-div">
+  <% } %>
+  
+  <% if (post.userId._id.toString() === currentLoginUserId.toString()) { %>
+  <div class="btn-div">
     <div>
       <a href="/admin/edit/<%= post._id %>" class="btn-full">Edit</a>
       <form action="/admin/delete/<%= post._id %>" method="POST">
         <button>Delete</button>
       </form>
     </div>
+    <a href="/save/<%= post._id %>">Save to device</a>
   </div>
-  <% } %> <img src="<%= "/" + post.imgUrl %>" alt="<%= post.title %>"
-  class="det-mg" />
+  <% } %>
+  <img src="<%= "/" + post.imgUrl %>" alt="<%= post.title %>" class="det-mg" />
   <hr />
   <p class="desc"><%= post.description %></p>
 </section>

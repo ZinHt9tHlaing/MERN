@@ -6,4 +6,6 @@ router.get("/", postController.renderHomePage);
 
 router.get("/post/:postId", postController.getDetailPost);
 
+router.get("/save/:id", postController.savePostAsPDF);
+
 module.exports = router;

@@ -1,6 +1,12 @@
 const { formatISO9075 } = require("date-fns");
 const Post = require("../models/post");
 const { validationResult } = require("express-validator");
+const pdf = require("pdf-creator-node");
+
+const fs = require("fs");
+const expressPath = require("path");
+
+const fileDelete = require("../utils/fileDelete");
 
 exports.createPost = (req, res, next) => {
   const { title, description } = req.body;
@@ -125,16 +131,6 @@ exports.updatePost = (req, res, next) => {
   const image = req.file;
   const errors = validationResult(req);
 
-  // if (image === undefined) {
-  //   return res.status(422).render("editPost", {
-  //     title,
-  //     postId,
-  //     errorMsg: "Image extension must be png, jpg and jpeg.",
-  //     oldFormData: { title, description },
-  //     isValidationFail: true,
-  //   });
-  // }
-
   if (!errors.isEmpty()) {
     return res.status(422).render("editPost", {
       title,
@@ -153,6 +149,7 @@ exports.updatePost = (req, res, next) => {
       post.title = title;
       post.description = description;
       if (image) {
+        fileDelete(post.imgUrl);
         post.imgUrl = image.path;
       }
       return post.save().then((result) => {
@@ -169,10 +166,86 @@ exports.updatePost = (req, res, next) => {
 
 exports.deletePost = (req, res, next) => {
   const { postId } = req.params;
-  Post.deleteOne({ _id: postId, userId: req.user._id })
+
+  Post.findById(postId)
+    .then((post) => {
+      if (!post) {
+        return res.redirect("/");
+      }
+      fileDelete(post.imgUrl);
+      return Post.deleteOne({ _id: postId, userId: req.user._id });
+    })
     .then(() => {
       console.log("Post deleted");
       res.redirect("/");
+    })
+    .catch((err) => {
+      console.log(err);
+      const error = new Error("Something went wrong.");
+      return next(error);
+    });
+};
+
+exports.savePostAsPDF = (req, res, next) => {
+  const { id } = req.params;
+  const templateUrl = `${expressPath.join(
+    __dirname,
+    "../views/template/template.html"
+  )}`;
+
+  const html = fs.readFileSync(templateUrl, "utf8");
+  const options = {
+    format: "A3",
+    orientation: "portrait",
+    border: "10mm",
+    header: {
+      height: "45mm",
+      contents:
+        '<h4 style="text-align: center;">PDF Download from BLOG.IO</h4>',
+    },
+    footer: {
+      height: "28mm",
+      contents: {
+        first: "Cover page",
+        contents:
+          '<span style="color: #444; text-align: center;">@blogio.mm</span>', // fallback value
+        last: "Last Page",
+      },
+    },
+  };
+
+  Post.findById(id)
+    .populate("userId", "email")
+    .lean()
+    .then((post) => {
+      const date = new Date();
+      const pdfSaveUrl = `${expressPath.join(
+        __dirname,
+        "../public/pdf",
+        date.getTime() + ".pdf"
+      )}`;
+
+      const document = {
+        html,
+        data: {
+          post,
+        },
+        path: pdfSaveUrl,
+        type: "",
+      };
+
+      pdf
+        .create(document, options)
+        .then((result) => {
+          console.log(result);
+          res.download(pdfSaveUrl, (err) => {
+            if (err) throw err;
+            fileDelete(pdfSaveUrl);
+          });
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     })
     .catch((err) => {
       console.log(err);

@@ -50,6 +50,14 @@ body {
   padding-left: 40px;
 }
 
+.btn-div,
+.btn-div div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
 .login-div,
 .login-div div {
   display: flex;
@@ -57,9 +65,9 @@ body {
   align-items: center;
 }
 
-.login-div div {
+/* .login-div div {
   gap: 10px;
-}
+} */
 
 .login-div span {
   font-size: 20px;
