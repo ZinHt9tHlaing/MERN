@@ -50,6 +50,11 @@ body {
   padding-left: 40px;
 }
 
+.my {
+  padding: 10px 0;
+  font-size: 25px;
+}
+
 .btn-div,
 .btn-div div {
   display: flex;
@@ -65,13 +70,21 @@ body {
   align-items: center;
 }
 
-/* .login-div div {
+.login-div div {
   gap: 10px;
-} */
+}
 
 .login-div span {
   font-size: 20px;
   font-weight: bold;
+}
+
+.paginate {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 80px 10px 40px;
 }
 
 .description {

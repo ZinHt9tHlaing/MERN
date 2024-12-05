@@ -8,6 +8,8 @@ const expressPath = require("path");
 
 const fileDelete = require("../utils/fileDelete");
 
+const POST_PAR_PAGE = 3;
+
 exports.createPost = (req, res, next) => {
   const { title, description } = req.body;
   const image = req.file;
@@ -51,23 +53,43 @@ exports.renderCreatePage = (req, res, next) => {
 };
 
 exports.renderHomePage = (req, res, next) => {
+  const pageNumber = +req.query.page || 1;
+  let totalPostNumber;
   // isLogIn = true
   // const cookie = req.get("Cookie").split("=")[1].trim() === "true";
   Post.find()
-    .select("title description")
-    .populate("userId", "email")
-    .sort({ title: -1 })
+    .countDocuments()
+    .then((totalPostCount) => {
+      totalPostNumber = totalPostCount;
+      return Post.find()
+        .select("title description")
+        .populate("userId", "email")
+        .skip((pageNumber - 1) * POST_PAR_PAGE)
+        .limit(POST_PAR_PAGE)
+        .sort({ createdAt: -1 });
+    })
     .then((posts) => {
-      // console.log(posts);
-      res.render("home", {
-        title: "Home Page",
-        postArr: posts,
-        isLogIn: req.session.isLogin ? true : false,
-        currentUserEmail: req.session.userInfo
-          ? req.session.userInfo.email
-          : "",
-        // csrfToken: req.csrfToken(),
-      });
+      if (posts.length > 0) {
+        res.render("home", {
+          title: "Home Page",
+          postArr: posts,
+          isLogIn: req.session.isLogin ? true : false,
+          currentUserEmail: req.session.userInfo
+            ? req.session.userInfo.email
+            : "",
+          // csrfToken: req.csrfToken(),
+          currentPage: pageNumber,
+          hasNextPage: POST_PAR_PAGE * pageNumber < totalPostNumber,
+          hasPreviousPage: pageNumber > 1,
+          nextPage: pageNumber + 1,
+          previousPage: pageNumber - 1,
+        });
+      } else {
+        return res.status(500).render("error/500", {
+          title: "Something went wrong",
+          errMessage: "No post in this page query.",
+        });
+      }
     })
     .catch((err) => {
       console.log(err);
@@ -199,18 +221,13 @@ exports.savePostAsPDF = (req, res, next) => {
     orientation: "portrait",
     border: "10mm",
     header: {
-      height: "45mm",
+      height: "20mm",
       contents:
         '<h4 style="text-align: center;">PDF Download from BLOG.IO</h4>',
     },
     footer: {
-      height: "28mm",
-      contents: {
-        first: "Cover page",
-        contents:
-          '<span style="color: #444; text-align: center;">@blogio.mm</span>', // fallback value
-        last: "Last Page",
-      },
+      height: "15mm",
+      contents: '<p style="color: #444; text-align: center;">@blogio.mm</p>', // fallback value
     },
   };
 
