@@ -1,27 +1,27 @@
 <%- include("includes/header.ejs") %>
 
 <section class="details">
-  <div>
+  <div class="details-div">
     <h1><%= post.title %></h1>
     <!-- <i class="fa-solid fa-arrow-left"></i> -->
-    <a href="/">Go Back</a>
+    <a href="/" class="gb-btn">Go Back</a>
   </div>
-  <p class="tmp">Posted by - <%= post.userId.email %></p>
-  <% if (date) { %>
-  <p class="tmp">Uploaded at - <%= date %></p>
-  <% } %>
-  
+
+  <p class="tmp"><i class="fa-solid fa-user"></i> <%= post.userId.email %></p>
+  <p class="tmp"><i class="fa-regular fa-calendar-days"></i> <%= date %></p>
+
   <% if (post.userId._id.toString() === currentLoginUserId.toString()) { %>
-  <div class="btn-div">
-    <div>
+  <div class="action-div">
+    <a href="/save/<%= post._id %>" class="tmp"><i class="fa-solid fa-file-arrow-down"></i> Save to device</a>
+    <div class="btn-div">
       <a href="/admin/edit/<%= post._id %>" class="btn-full">Edit</a>
       <form action="/admin/delete/<%= post._id %>" method="POST">
         <button>Delete</button>
       </form>
     </div>
-    <a href="/save/<%= post._id %>">Save to device</a>
   </div>
   <% } %>
+
   <img src="<%= "/" + post.imgUrl %>" alt="<%= post.title %>" class="det-mg" />
   <hr />
   <p class="desc"><%= post.description %></p>

@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const postController = require("../controllers/post");
+const userController = require("../controllers/user");
 const { body } = require("express-validator");
 
 //  /admin/create-post
@@ -37,5 +38,20 @@ router.post(
 );
 
 router.post("/delete/:postId", postController.deletePost);
+
+router.get("/profile", userController.getProfile);
+
+router.get("/username", userController.renderUsernamePage);
+
+router.post(
+  "/setUsername",
+  body("username")
+    .trim()
+    .isLength({ min: 4 })
+    .withMessage("Username must have 4 letters."),
+  userController.setUsername
+);
+
+router.get("/premium", userController.renderPremiumPage);
 
 module.exports = router;

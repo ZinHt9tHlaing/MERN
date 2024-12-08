@@ -1,0 +1,22 @@
+<%- include("../includes/header.ejs") %>
+
+<section class="mx-auto">
+  <a href="/admin/profile">Go back</a>
+  <h1 class="title">Set username</h1>
+  <% if (errorMsg) { %>
+  <p class="msg-box"><%= errorMsg %></p>
+  <% } %>
+  <form method="post" action="/admin/setUsername">
+    <div>
+      <label for="username">Enter Username</label>
+      <input
+        type="text"
+        id="username"
+        name="username"
+        value="<%= oldFormData.username %>"
+      />
+    </div>
+    <button>Set Username</button>
+  </form>
+</section>
+<%- include("../includes/footer.ejs") %>

@@ -1,71 +1,43 @@
 <%- include("includes/header.ejs") %>
 
 <section class="header">
-  <h1 class="title">Blog.io</h1>
-  <p class="description">
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum tempora odio
-    impedit soluta omnis deleniti veritatis laudantium laborum placeat suscipit
-    debitis expedita, culpa ducimus dolore explicabo aut repudiandae, ex vero.
-    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Inventore
-    temporibus quas nobis magni doloribus dolorum minus rerum corporis suscipit
-    voluptatem, itaque repudiandae non voluptate adipisci molestiae commodi
-    consequatur officiis perspiciatis. Lorem, ipsum dolor sit amet consectetur
-    adipisicing elit. Ipsa, sapiente.
-  </p>
+  <h1 class="title">Recent posts</h1>
+  <div>
+    <% if(postArr.length === 0 && isLogIn) { %>
+    <h4>Nothing to see</h4>
+    <p>Create a new post !!</p>
+    <a href="/admin/create-post">Create a new post</a>
+    <% } %>
+  </div>
+  <div class="post-container">
+    <% for( let post of postArr ) { %>
+    <div class="post-box">
+      <img class="post-box-img" src="<%= "/" + post.imgUrl %>" alt="<%=
+      post.title %>">
+      <a href="/post/<%= post._id %>" class="post-title"><%= post.title %></a>
+      <p class="post-desc"><%= post.description.substr(0, 150) %></p>
+
+      <hr class="hr" />
+
+      <% if (post.userId._id.toString() === currentUserID.toString()) { %>
+      <a href="/admin/profile" class="post-email"><span>Post by : </span><%= post.userId.email %></a>
+      <% } else { %>
+      <a href="/profile/<%= post.userId._id %>" class="post-email"><span>Post by : </span><%= post.userId.email %></a>
+      <% } %>
+    </div>
+    <% } %>
+  </div>
+
+  <div class="paginate">
+    <% if (!hasNextPage && currentPage === 1) { %>
+    <a href="/?page=2">Next Page</a>
+    <% } %>
+    <% if (hasNextPage) { %>
+    <a href="/?page=<%= nextPage %>">Next Page <%= nextPage %></a>
+    <% } %>
+    <% if (hasPreviousPage) { %>
+    <a href="/?page=<%= previousPage %>">Previous Page <%= previousPage %></a>
+    <% } %>
+  </div>
 </section>
-<% if (isLogIn) { %>
-
-<div class="login-div">
-  <div>
-    <a href="/admin/create-post">Add a new post as <%= currentUserEmail %></a>
-    <span>or</span>
-    <form action="/logout" method="post">
-      <button>Logout</button>
-    </form>
-  </div>
-</div>
-
-<% } else { %>
-<div class="login-div">
-  <div>
-    <a href="/login">Login to existing account</a>
-    <span>or</span>
-    <a href="/register">Create a new account</a>
-  </div>
-</div>
-<% } %>
-
-<hr class="hr" />
-
-<h1 class="title">Recent posts</h1>
-<div class="pl-80">
-  <% if(postArr.length < 1 && isLogIn) { %>
-  <h4>Nothing to see</h4>
-  <p>Create a new post !!</p>
-  <a href="/admin/create-post">Create a new post</a>
-  <% } %>
-</div>
-<div class="post-container">
-  <% for( let post of postArr ) { %>
-  <div class="post-box">
-    <p class="post-title"><%= post.title %></p>
-    <p class="post-email">Post by : <%= post.userId.email %></p>
-    <p class="post-desc"><%= post.description.substr(0, 250) %></p>
-    <a href="/post/<%= post._id %>" class="btn">Read more...</a>
-    <hr />
-  </div>
-  <% } %>
-</div>
-
-<div class="paginate">
-  <% if (!hasNextPage && currentPage === 1) { %>
-  <a href="/?page=2">Next Page</a>
-  <% } %>
-  <% if (hasNextPage) { %>
-  <a href="/?page=<%= nextPage %>">Next Page <%= nextPage %></a>
-  <% } %>
-   <% if (hasPreviousPage) { %>
-  <a href="/?page=<%= previousPage %>">Previous Page <%= previousPage %></a>
-  <% } %>
-</div>
 <%- include("includes/footer.ejs") %>

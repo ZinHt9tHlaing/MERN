@@ -8,7 +8,7 @@ const expressPath = require("path");
 
 const fileDelete = require("../utils/fileDelete");
 
-const POST_PAR_PAGE = 3;
+const POST_PAR_PAGE = 6;
 
 exports.createPost = (req, res, next) => {
   const { title, description } = req.body;
@@ -62,7 +62,7 @@ exports.renderHomePage = (req, res, next) => {
     .then((totalPostCount) => {
       totalPostNumber = totalPostCount;
       return Post.find()
-        .select("title description")
+        .select("title description imgUrl")
         .populate("userId", "email")
         .skip((pageNumber - 1) * POST_PAR_PAGE)
         .limit(POST_PAR_PAGE)
@@ -70,19 +70,18 @@ exports.renderHomePage = (req, res, next) => {
     })
     .then((posts) => {
       if (posts.length > 0) {
-        res.render("home", {
+        return res.render("home", {
           title: "Home Page",
           postArr: posts,
           isLogIn: req.session.isLogin ? true : false,
-          currentUserEmail: req.session.userInfo
-            ? req.session.userInfo.email
-            : "",
+
           // csrfToken: req.csrfToken(),
           currentPage: pageNumber,
           hasNextPage: POST_PAR_PAGE * pageNumber < totalPostNumber,
           hasPreviousPage: pageNumber > 1,
           nextPage: pageNumber + 1,
           previousPage: pageNumber - 1,
+          currentUserID: req.session.userInfo ? req.session.userInfo._id : "",
         });
       } else {
         return res.status(500).render("error/500", {

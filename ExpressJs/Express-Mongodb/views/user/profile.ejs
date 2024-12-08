@@ -1,0 +1,38 @@
+<%- include("../includes/header.ejs") %>
+
+<section class="header">
+  <div class="own-user">
+    <div class="ic-email">
+      <i class="fa-solid fa-circle-user"></i>
+      <p class=""><%= currentUserEmail %></p>
+      <p class=""><%= postArr[0].userId.username ? postArr[0].userId.username : "" %></p>
+    </div>
+    <div class="own-user-right">
+      <a href="/admin/username">Set username</a>
+      <a href="/admin/premium">Buy IO premium</a>
+    </div>
+  </div>
+  <div class="post-container">
+    <% for( let post of postArr ) { %>
+    <div class="post-box">
+      <img class="post-box-img" src="<%= "/" + post.imgUrl %>" alt="<%=
+      post.title %>">
+      <a href="/post/<%= post._id %>" class="post-title"><%= post.title %></a>
+      <p class="post-desc"><%= post.description.substr(0, 150) %></p>
+      <hr class="hr" />
+      <a href="/profile/<%= post.userId._id %>" class="post-email"><span>Post by : </span><%= post.userId.email %></a>
+    </div>
+    <% } %>
+  </div>
+
+  <div class="paginate">
+    <% if (hasNextPage) { %>
+    <a href="/admin/profile?page=<%= nextPage %>">Next Page <%= nextPage %></a>
+    <% } %>
+    <% if (hasPreviousPage) { %>
+    <a href="/admin/profile?page=<%= previousPage %>">Previous Page <%= previousPage %></a>
+    <% } %>
+  </div>
+</section>
+
+<%- include("../includes/footer.ejs") %>

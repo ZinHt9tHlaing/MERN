@@ -1,8 +1,8 @@
 <%- include("includes/header.ejs") %>
 
 <section class="mx-auto">
-  <a href="/">Go back home</a>
-  <h1 class="form-title">Edit post here</h1>
+  <a href="/post/<%= post._id %>">Go back Details</a>
+  <h1 class="title">Edit post here</h1>
   <% if (errorMsg) { %>
   <p class="msg-box"><%= errorMsg %></p>
   <% } %>

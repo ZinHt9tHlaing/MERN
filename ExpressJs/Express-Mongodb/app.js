@@ -95,17 +95,17 @@ app.use((req, res, next) => {
   }
 });
 
+// to send csrf token for every page render
+app.use((req, res, next) => {
+  res.locals.isLogIn = req.session.isLogin ? true : false;
+  // res.locals.csrfToken = req.csrfToken();
+  next();
+});
+
 // routes define
 app.use("/admin", isLogin, adminRoutes);
 app.use(postRoutes);
 app.use(authRoutes);
-
-// to send csrf token for every page render
-// app.use((req, res, next) => {
-//    res.locals.isLogIn = req.session.isLogin ? true : false;
-//   res.locals.csrfToken = req.csrfToken();
-//   next();
-// });
 
 app.all("*", errorController.get404Page);
 

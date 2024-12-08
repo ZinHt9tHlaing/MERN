@@ -1,0 +1,13 @@
+<a href="/admin/create-post"
+            >Add a new post as <%= currentUserEmail ? currentUserEmail : "" %></a
+          >
+
+
+
+           currentUserEmail: req.session.userInfo
+            ? req.session.userInfo.email
+            : "",
+
+
+
+             isLogIn: req.session.isLogin ? true : false,
