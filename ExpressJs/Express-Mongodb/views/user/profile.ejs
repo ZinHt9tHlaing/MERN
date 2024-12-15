@@ -5,7 +5,17 @@
     <div class="ic-email">
       <i class="fa-solid fa-circle-user"></i>
       <p class=""><%= currentUserEmail %></p>
-      <p class=""><%= postArr[0].userId.username ? postArr[0].userId.username : "" %></p>
+      <p class="">
+        <% if (postArr[0].userId.username) { %>
+          <p class="premium-username"><%= postArr[0].userId.username %>
+            <% if (postArr[0].userId.isPremium) { %>
+              <i class="fa-regular fa-star animate__animated animate__rubberBand animate__infinite	infinite"></i>
+            <% } %>
+          </p>
+        <% } else { %>
+          <p class="premium-username"><%= postArr[0].userId.username %></p>
+        <% } %>
+      </p>
     </div>
     <div class="own-user-right">
       <a href="/admin/username">Set username</a>
@@ -28,8 +38,7 @@
   <div class="paginate">
     <% if (hasNextPage) { %>
     <a href="/admin/profile?page=<%= nextPage %>">Next Page <%= nextPage %></a>
-    <% } %>
-    <% if (hasPreviousPage) { %>
+    <% } %> <% if (hasPreviousPage) { %>
     <a href="/admin/profile?page=<%= previousPage %>">Previous Page <%= previousPage %></a>
     <% } %>
   </div>

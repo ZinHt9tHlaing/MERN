@@ -246,6 +246,10 @@ button,
   height: 90vh;
 }
 
+.premium-username i {
+  font-size: 18px;
+}
+
 .card {
   padding: 20px 20px;
   border: 2px solid black;
@@ -258,7 +262,7 @@ button,
   margin-bottom: 10px;
 }
 
-.card p {
+.card .checkout-btn {
   background-color: #000;
   color: #fff;
   padding: 8px 10px;
