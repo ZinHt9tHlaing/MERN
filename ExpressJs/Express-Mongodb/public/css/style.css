@@ -63,7 +63,7 @@ nav .right-side {
 }
 
 .header {
-  width: 60%;
+  width: 65%;
   margin: 0 auto;
 }
 
@@ -236,6 +236,19 @@ button,
   text-align: center;
 }
 
+/* homepage start */
+.user-index {
+  display: flex;
+  align-items: center;
+}
+
+.user-index-ic {
+  margin-right: 10px;
+  font-size: 60px;
+}
+
+/* homepage end */
+
 /* premium start */
 .premium {
   width: 60%;
@@ -249,6 +262,41 @@ button,
 .premium-username i {
   font-size: 18px;
 }
+
+/* premium end */
+
+/* premium details start */
+.p-details {
+  width: 65%;
+  margin: 0 auto;
+}
+
+.p-details h1 {
+  font-size: 3rem;
+}
+
+.p-details span {
+  font-weight: bold;
+}
+
+.p-details .status {
+  background-color: green;
+  color: #fff;
+  padding: 1px 3px 1px 3px;
+}
+
+/* premium details end */
+
+/* subscription success start */
+.s-success {
+  text-align: center;
+}
+
+.s-success h1 {
+  font-size: 3rem;
+}
+
+/* subscription success end */
 
 .card {
   padding: 20px 20px;

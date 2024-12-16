@@ -12,7 +12,12 @@
 
   <% if (post.userId._id.toString() === currentLoginUserId.toString()) { %>
   <div class="action-div">
-    <a href="/save/<%= post._id %>" class="tmp"><i class="fa-solid fa-file-arrow-down"></i> Save to device</a>
+    <% if (currentLoginUserPremiumStatus) { %>
+    <a href="/save/<%= post._id %>" class="tmp"
+      ><i class="fa-solid fa-file-arrow-down"></i> Save to device</a
+    >
+    <% } %>
+
     <div class="btn-div">
       <a href="/admin/edit/<%= post._id %>" class="btn-full">Edit</a>
       <form action="/admin/delete/<%= post._id %>" method="POST">
@@ -20,9 +25,8 @@
       </form>
     </div>
   </div>
-  <% } %>
-
-  <img src="<%= "/" + post.imgUrl %>" alt="<%= post.title %>" class="det-mg" />
+  <% } %> <img src="<%= "/" + post.imgUrl %>" alt="<%= post.title %>"
+  class="det-mg" />
   <hr />
   <p class="desc"><%= post.description %></p>
 </section>
