@@ -1,0 +1,22 @@
+<%- include("../includes/header.ejs") %>
+
+<section class="mx-auto">
+  <a href="/admin/profile">Go back</a>
+  <h1 class="title">Upload profile</h1>
+  <% if (errorMsg) { %>
+  <p class="msg-box"><%= errorMsg %></p>
+  <% } %>
+  <form method="post" action="/admin/set-profile" enctype="multipart/form-data">
+    <div>
+      <label for="photo">Upload Image</label>
+      <input
+        type="file"
+        id="photo"
+        name="photo"
+        value="<%= oldFormData.username %>"
+      />
+    </div>
+    <button>Upload Profile</button>
+  </form>
+</section>
+<%- include("../includes/footer.ejs") %>

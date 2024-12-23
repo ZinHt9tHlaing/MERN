@@ -13,6 +13,7 @@ const POST_PAR_PAGE = 6;
 exports.createPost = (req, res, next) => {
   const { title, description } = req.body;
   const image = req.file;
+  const errors = validationResult(req);
 
   if (image === undefined) {
     return res.status(422).render("addPost", {
@@ -21,8 +22,6 @@ exports.createPost = (req, res, next) => {
       oldFormData: { title, description },
     });
   }
-
-  const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
     return res.status(422).render("addPost", {
@@ -63,7 +62,7 @@ exports.renderHomePage = (req, res, next) => {
       totalPostNumber = totalPostCount;
       return Post.find()
         .select("title description imgUrl")
-        .populate("userId", "email isPremium username")
+        .populate("userId", "email isPremium username profile_imgUrl")
         .skip((pageNumber - 1) * POST_PAR_PAGE)
         .limit(POST_PAR_PAGE)
         .sort({ createdAt: -1 });

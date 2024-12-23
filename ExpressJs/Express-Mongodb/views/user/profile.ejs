@@ -1,9 +1,14 @@
 <%- include("../includes/header.ejs") %>
 
+<% if (postArr.length > 0) { %>
 <section class="header">
   <div class="own-user">
     <div class="ic-email">
+      <% if (postArr[0].userId.profile_imgUrl && postArr[0].userId.isPremium) { %>
+      <img src="<%= "/" + postArr[0].userId.profile_imgUrl %>" alt="<%= postArr[0].userId.username %>" class="profile-photo" />
+      <% } else { %>
       <i class="fa-solid fa-circle-user"></i>
+      <% } %>
       <p class=""><%= currentUserEmail %></p>
       <p class="">
         <% if (postArr[0].userId.username) { %>
@@ -19,7 +24,9 @@
     </div>
     <div class="own-user-right">
       <a href="/admin/username">Set username</a>
+      <a href="/admin/profile-image">Upload profile</a>
       <% if (postArr[0].userId.isPremium) { %>
+      <a href="/admin/profile-image">Upload profile</a>
       <a href="/admin/premium-details">IO premium status</a>
       <% } else { %>
       <a href="/admin/premium">Buy IO premium</a>
@@ -46,5 +53,11 @@
     <% } %>
   </div>
 </section>
+<% } else { %>
+<section class="header">
+  <h1 style="font-size: 3rem;">Create a new post first</h1>
+  <a href="/admin/create-post">Create Post</a>
+</section>
+<% } %>
 
 <%- include("../includes/footer.ejs") %>

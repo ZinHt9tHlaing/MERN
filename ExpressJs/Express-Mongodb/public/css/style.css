@@ -215,6 +215,21 @@ button,
   margin: 40px 0 20px 0;
 }
 
+.profile-photo {
+  width: 100px;
+  height: 10px;
+  object-fit: cover;
+  border-radius: 10%;
+}
+
+.profile-photo-home {
+  width: 62px;
+  height: 62px;
+  object-fit: cover;
+  border-radius: 20%;
+  margin-right: 6px;
+}
+
 .public-user i,
 .own-user i {
   font-size: 5rem;
@@ -227,9 +242,9 @@ button,
   justify-content: space-between;
 }
 
-.own-user .ic-email {
+/* .own-user .ic-email {
   text-align: center;
-}
+} */
 
 .own-user-right a {
   width: 100%;
@@ -239,7 +254,7 @@ button,
 /* homepage start */
 .user-index {
   display: flex;
-  align-items: center;
+  /* align-items: center; */
 }
 
 .user-index-ic {
@@ -290,6 +305,8 @@ button,
 /* subscription success start */
 .s-success {
   text-align: center;
+  width: 60%;
+  margin: 0 auto;
 }
 
 .s-success h1 {

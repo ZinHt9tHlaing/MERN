@@ -21,13 +21,22 @@
 
       <div class="user-index">
         <% if (post.userId._id.toString() === currentUserID.toString()) { %>
-        <a href="/admin/profile" class="user-index-ic"
-          ><i class="fa-solid fa-circle-user"></i
-        ></a>
+        <a href="/admin/profile">
+          <% if (post.userId.profile_imgUrl && post.userId.isPremium) { %>
+          <img src="<%= "/" + post.userId.profile_imgUrl %>" alt="<%= post.userId.username %>" class="profile-photo-home" />
+          <% } else { %>
+          <i class="fa-solid fa-circle-user user-index-ic"></i>
+          <% } %>
+        </a>
         <% } else { %>
-        <a href="/profile/<%= post.userId._id %>" class="user-index-ic"
-          ><i class="fa-solid fa-circle-user"></i
-        ></a>
+
+        <a href="/profile/<%= post.userId._id %>">
+          <% if (post.userId.profile_imgUrl && post.userId.isPremium) { %>
+          <img src="<%= "/" + post.userId.profile_imgUrl %>" alt="<%= post.userId.username %>" class="profile-photo-home" />
+          <% } else { %>
+          <i class="fa-solid fa-circle-user user-index-ic"></i>
+          <% } %>
+        </a>
         <% } %>
 
         <div>
@@ -35,9 +44,7 @@
 
           <% if (post.userId.isPremium) { %>
           <p class="post-email">
-            <%= post.userId.username %><i
-              class="fa-regular fa-star animate__animated animate__rubberBand animate__infinite infinite"
-            ></i>
+            <%= post.userId.username %><i class="fa-regular fa-star animate__animated animate__rubberBand animate__infinite infinite"></i>
           </p>
           <% } else { %>
           <p href="/profile/<%= post.userId._id %>" class="post-email">

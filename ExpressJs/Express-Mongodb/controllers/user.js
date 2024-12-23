@@ -17,13 +17,18 @@ exports.getProfile = (req, res, next) => {
     .then((totalPostCount) => {
       totalPostNumber = totalPostCount;
       return Post.find({ userId: req.user._id })
-        .populate("userId", "email username isPremium")
+        .populate("userId", "email username isPremium profile_imgUrl")
         .skip((pageNumber - 1) * POST_PAR_PAGE)
         .limit(POST_PAR_PAGE)
         .sort({ createdAt: -1 });
     })
     .then((posts) => {
-      if (posts.length > 0) {
+      if (!posts.length && pageNumber > 1) {
+        return res.status(500).render("error/500", {
+          title: "Something went wrong",
+          errMessage: "No post in this page query.",
+        });
+      } else {
         return res.render("user/profile", {
           title: req.session.userInfo.email,
           postArr: posts,
@@ -35,11 +40,6 @@ exports.getProfile = (req, res, next) => {
           currentUserEmail: req.session.userInfo
             ? req.session.userInfo.email
             : "",
-        });
-      } else {
-        return res.status(500).render("error/500", {
-          title: "Something went wrong",
-          errMessage: "No post in this page query.",
         });
       }
     })
@@ -61,7 +61,7 @@ exports.getPublicProfile = (req, res, next) => {
     .then((totalPostCount) => {
       totalPostNumber = totalPostCount;
       return Post.find({ userId: id })
-        .populate("userId", "email username isPremium")
+        .populate("userId", "email username isPremium profile_imgUrl")
         .skip((pageNumber - 1) * POST_PAR_PAGE)
         .limit(POST_PAR_PAGE)
         .sort({ createdAt: -1 });
@@ -206,6 +206,45 @@ exports.getPremiumDetails = (req, res, next) => {
         invoice_id: stripe_session.invoice,
         payment_status: stripe_session.payment_status,
       });
+    })
+    .catch((err) => {
+      console.log(err);
+      const error = new Error("Something went wrong.");
+      return next(error);
+    });
+};
+
+exports.getProfileUploadPage = (req, res) => {
+  res.render("user/profile-upload", { title: "Profile image", errorMsg: "" });
+};
+
+exports.setProfilePage = (req, res, next) => {
+  const photo = req.file;
+  const errors = validationResult(req);
+
+  if (photo === undefined) {
+    return res.status(422).render("user/profile-upload", {
+      title: "Profile image",
+      errorMsg: "Image extension must be png, jpg and jpeg.",
+      oldFormData: { title, description },
+    });
+  }
+
+  if (!errors.isEmpty()) {
+    return res.status(422).render("user/profile-upload", {
+      title: "Profile image",
+      errorMsg: errors.array()[0].msg,
+      oldFormData: { title, description },
+    });
+  }
+
+  User.findById(req.user._id)
+    .then((user) => {
+      user.profile_imgUrl = photo.path;
+      return user;
+    })
+    .then((_) => {
+      res.redirect("/admin/profile");
     })
     .catch((err) => {
       console.log(err);
